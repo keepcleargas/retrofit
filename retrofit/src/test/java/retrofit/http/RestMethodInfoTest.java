@@ -665,6 +665,18 @@ public class RestMethodInfoTest {
     methodInfo.init();
   }
 
+  @Test public void pathParamEndingInNumbersAndTypedBytes() {
+    class Example {
+      @PUT("/{a1}") Response a(@Name("a1") int a, @SingleEntity int b) {
+        return null;
+      }
+    }
+
+    Method method = TestingUtils.getMethod(Example.class, "a");
+    RestMethodInfo methodInfo = new RestMethodInfo(method);
+    methodInfo.init();
+  }
+
   @Test(expected = IllegalStateException.class)
   public void parameterWithoutAnnotation() {
     class Example {
